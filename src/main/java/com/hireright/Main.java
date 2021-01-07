@@ -1,22 +1,19 @@
 package com.hireright;
 
-import com.hireright.controller.FileDataAnalyzerController;
-import com.hireright.service.*;
+import com.hireright.controller.ExternalDataAnalyzerController;
+import com.hireright.model.File;
 
-import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        ReadFileContentService readFileContentService = new ReadFileContentService();
-        StopWordService stopWordService = new StopWordService();
-        CountCharactersService countCharactersService = new CountCharactersService();
-        CountCapitalCharactersService countCapitalCharactersService = new CountCapitalCharactersService();
-        ArgumentSearchService argumentSearchService = new ArgumentSearchService();
-        FileDataAnalyzerController fileDataAnalyzerController = new FileDataAnalyzerController(readFileContentService,
-                stopWordService, countCharactersService, countCapitalCharactersService, argumentSearchService);
+        ExternalDataAnalyzerController externalDataAnalyzerController = new ExternalDataAnalyzerController();
 
-        fileDataAnalyzerController.startFileAnalyzing(Arrays.asList(args));
+        File file = new File();
+        List<String> arguments = Arrays.asList(args);
+
+        externalDataAnalyzerController.startExternalFileAnalyzing(file, arguments);
     }
 }

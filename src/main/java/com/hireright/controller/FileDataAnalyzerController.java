@@ -9,7 +9,7 @@ import java.util.List;
 public class FileDataAnalyzerController {
 
     public static final String NO_FILE_COMMAND_GIVEN_MESSAGE = "\nPlease use command -F to see filename " +
-                                                                "and ./filename.txt for file content";
+            "and ./filename.txt for file content";
 
     private ReadFileContentService readFileContentService;
     private StopWordService stopWordService;
@@ -27,10 +27,9 @@ public class FileDataAnalyzerController {
         this.argumentSearchService = argumentSearchService;
     }
 
-    public void startFileAnalyzing(List<String> arguments) {
+    public File startFileAnalyzing(File file, List<String> arguments) {
         if (argumentSearchService.hasFileNameCommand(arguments)) {
             for (String fileName : argumentSearchService.getAllFileNames(arguments)) {
-                File file = new File();
                 readFileContentService.fillFileWithReadContent(file, Paths.get(fileName));
                 removeStopWordsIfCommandIsGiven(arguments, file);
                 countAllCharactersIfCommandIsGiven(arguments, file);
@@ -39,7 +38,7 @@ public class FileDataAnalyzerController {
         } else {
             printMessage();
         }
-
+        return file;
     }
 
     private void removeStopWordsIfCommandIsGiven(List<String> argumentsAsList, File file) {
